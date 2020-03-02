@@ -16,7 +16,7 @@ class ImagePicker extends Component {
   }
 
   handleImageClick(image) {
-    const { multiple, onPick } = this.props
+    const { multiple, onPick, customPicked} = this.props
     const pickedImage = multiple ? this.state.picked : Map()
     const newerPickedImage = 
       pickedImage.has(image.value) ? 
@@ -26,7 +26,8 @@ class ImagePicker extends Component {
     this.setState({picked: newerPickedImage})
 
     const pickedImageToArray = []
-    newerPickedImage.map((image, i) => pickedImageToArray.push({src: image, value: i}))
+    pickedImageToArray.push(customPicked)
+    newerPickedImage.map((image, i) => pickedImageToArray.push({src: image, value: i})) 
     
     onPick(multiple ? pickedImageToArray : pickedImageToArray[0])
   }
